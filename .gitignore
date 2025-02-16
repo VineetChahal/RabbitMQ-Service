@@ -1,0 +1,33 @@
+# Node dependencies  
+node_modules/  
+npm-debug.log  
+yarn-error.log  
+
+# Environment variables  
+.env  
+
+# Logs  
+logs/  
+*.log  
+debug.log  
+error.log  
+
+# Database  
+*.sqlite  
+*.db  
+
+# Build artifacts  
+dist/  
+build/  
+
+# System files  
+.DS_Store  
+Thumbs.db  
+.vscode/  
+.idea/  
+
+# Coverage & testing  
+coverage/  
+jest-cache/  
+
+copy code

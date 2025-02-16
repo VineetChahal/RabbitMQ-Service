@@ -1,0 +1,26 @@
+{
+  "name": "rabbitmqservice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --ext ts --exec ts-node src/rabbitmq/consumer.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "amqplib": "^0.10.5",
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.10.0",
+    "winston": "^3.17.0"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.6",
+    "@types/node": "^22.13.4",
+    "@types/nodemailer": "^6.4.17",
+    "nodemon": "^3.1.9",
+    "typescript": "^5.7.3"
+  }
+}
