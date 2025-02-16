@@ -1,4 +1,3 @@
-// logger.ts
 import winston from "winston";
 
 const logger = winston.createLogger({

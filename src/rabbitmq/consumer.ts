@@ -1,16 +1,14 @@
 import * as amqp from "amqplib";
 import dotenv from "dotenv";
 import logger from "../utils/logger";
-import { sendEmail } from "../utils/mailer";
+import {sendEmail } from "../utils/mailer";
+import { RABBITMQ_URL, QUEUE_NAME_FORGOT, QUEUE_NAME_REGISTER } from "../config/rabbitConfig";
 
 dotenv.config();
 
-const QUEUE_NAME_FORGOT = "EmailQueue";
-const QUEUE_NAME_REGISTER = "RegisterQueue";
-
 async function consumeMessages() {
   try {
-    const connection = await amqp.connect("amqp://localhost");
+    const connection = await amqp.connect(RABBITMQ_URL);
     const channel = await connection.createChannel();
 
     await channel.assertQueue(QUEUE_NAME_FORGOT, { durable: true });
@@ -72,3 +70,39 @@ async function consumeMessages() {
 
 // Start consuming messages
 consumeMessages().catch((error) => logger.error(`❌ Error: ${error}`));
+
+
+// if wanna run it as standalone application.
+/**
+import amqp from "amqplib";
+import dotenv from "dotenv";
+import logger from "../utils/logger";
+import { RABBITMQ_URL, QUEUE_NAME } from "../config/rabbitConfig";
+
+dotenv.config();
+
+async function consumeQueue() {
+  try {
+    const connection = await amqp.connect(RABBITMQ_URL);
+    const channel = await connection.createChannel();
+
+    await channel.assertQueue(QUEUE_NAME, { durable: true });
+    logger.info(`🚀 Waiting for messages in ${QUEUE_NAME}...`);
+
+    channel.consume(QUEUE_NAME, async (msg) => {
+      if (msg) {
+        const content = JSON.parse(msg.content.toString());
+        logger.info(`📥 Received message: ${JSON.stringify(content)}`);
+        
+        channel.ack(msg);
+      }
+    });
+  } catch (error) {
+    logger.error(`❌ Error consuming ${QUEUE_NAME}: ${error.message}`);
+  }
+}
+
+// Start consumer
+consumeQueue();
+
+ */
